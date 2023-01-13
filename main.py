@@ -9,7 +9,7 @@ import sys
 
 HOST = "dinoce-ghoul2"
 USER = "root"
-PASS = "Nux2017." # Define password before using script (PASS is empty for Git security purposes for now (arguments will be implemented))
+PASS = "" # Define password before using script (PASS is empty for Git security purposes for now (arguments will be implemented))
 
 PROJECT_ROOT = ""
 
