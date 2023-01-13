@@ -1,3 +1,6 @@
+'''
+MAIN FILE
+'''
 from ftplib import FTP
 import pysftp
 import os
@@ -10,7 +13,11 @@ PASS = "Nux2017."
 root_dir = 'C:\\'
 
 def copy_local_files():
-    print(root_dir)
+    for i, (folder, subfolders, files) in enumerate(os.walk(root_dir)):
+        if(i<=1):
+            print(folder)
+        else:
+            break
 
 def upload_to_remote():
     with pysftp.Connection(HOST, username=USER, password=PASS) as sftp:
