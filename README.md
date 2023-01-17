@@ -8,3 +8,4 @@
 - [ ] Add possible parameters
 - [ ] Handle password security
 - [ ] Handle all checks for file.exists and exceptions
+- [ ] Add time measure for script execution (e.g "done in 1.5s")
