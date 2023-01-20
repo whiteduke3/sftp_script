@@ -9,7 +9,7 @@ import sys
 
 HOST = "dinoce-ghoul2"
 USER = "root"
-PASS = "" # Define password before using script (PASS is empty for Git security purposes for now (arguments will be implemented))
+PASS = "Nux2017." # Define password before using script (PASS is empty for Git security purposes for now (arguments will be implemented))
 
 PROJECT_ROOT = ""
 
@@ -34,6 +34,7 @@ def find_grizzly_files():
     global PROJECT_ROOT, LIB_FOLDER_PATH, DATABASE_FOLDER_PATH, WWW_FOLDER_PATH
     sys.stdout.write("Searching local project files...\n")
     for root, dirs, files in os.walk(HOME_DIRECTORY): # Assumes project is somewhere in the home directory (needs improvement)
+        print("\n")
         for dir in dirs:
             if dir.strip() == "enterprise-cloud" and PROJECT_ROOT.strip() == "": # Searching only up to enterprise cloud to shorten search time
                 PROJECT_ROOT = os.path.join(root, dir) + "\\Virtual Appliance\\opt\\grizzly"
@@ -64,8 +65,12 @@ def rm(sftp, path):
 
     sftp.rmdir(path)
 
-def upload_dir(sftp, path):
-    pass
+def upload_dir(sftp, localpath, remotepath):
+    for fso in os.listdir(localpath):
+        if os.path.isdir(localpath + fso):
+            upload_dir(sftp, localpath+fso, remotepath+fso)
+        else:
+            sftp.put(localpath=localpath, remotepath=remotepath+fso)
 
 def upload_to_remote():
     global PROJECT_ROOT, LIB_FOLDER_PATH, DATABASE_FOLDER_PATH, WWW_FOLDER_PATH
@@ -84,6 +89,8 @@ def upload_to_remote():
             if os.path.isfile(local_path):
                 sftp.put(localpath=local_path, remotepath=remote_path)
             elif os.path.isdir(local_path):
+                #sftp.put_d(localpath=local_path, remotepath="/opt/grizzly/lib/")
+                #upload_dir(sftp, local_path, remote_path)
                 pass
             '''
             code above works but it doesn't copy directories, 
